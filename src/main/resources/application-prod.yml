@@ -1,0 +1,4 @@
+# Server settings (ServerProperties)
+server:
+  port: 8088
+  context-path: /project
