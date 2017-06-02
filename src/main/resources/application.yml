@@ -1,4 +1,10 @@
 spring:
   profiles:
     active: dev
-
+mybatis:
+  #指定bean所在包
+  type-aliases-package: com.project.model
+  #指定映射文件
+  mapper-locations: classpath:mybatis/*.xml
+  config-location: classpath:mybatis-config.xml
+springfox.documentation.swagger.v2.path: /api-docs

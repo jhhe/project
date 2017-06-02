@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.UsercategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.project.model.Usercategory" >
+    <id column="ucid" property="ucid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="categoryid" property="categoryid" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="creationdate" property="creationdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ucid, uid, categoryid, deleted, creationdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.project.model.UsercategoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gxb_usercategory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gxb_usercategory
+    where ucid = #{ucid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gxb_usercategory
+    where ucid = #{ucid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.model.Usercategory" >
+    insert into gxb_usercategory (ucid, uid, categoryid, 
+      deleted, creationdate)
+    values (#{ucid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{categoryid,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{creationdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.Usercategory" >
+    insert into gxb_usercategory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ucid != null" >
+        ucid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="categoryid != null" >
+        categoryid,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="creationdate != null" >
+        creationdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ucid != null" >
+        #{ucid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.UsercategoryExample" resultType="java.lang.Integer" >
+    select count(*) from gxb_usercategory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gxb_usercategory
+    <set >
+      <if test="record.ucid != null" >
+        ucid = #{record.ucid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryid != null" >
+        categoryid = #{record.categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationdate != null" >
+        creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gxb_usercategory
+    set ucid = #{record.ucid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      categoryid = #{record.categoryid,jdbcType=INTEGER},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      creationdate = #{record.creationdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.Usercategory" >
+    update gxb_usercategory
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="categoryid != null" >
+        categoryid = #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ucid = #{ucid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.Usercategory" >
+    update gxb_usercategory
+    set uid = #{uid,jdbcType=INTEGER},
+      categoryid = #{categoryid,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP}
+    where ucid = #{ucid,jdbcType=INTEGER}
+  </update>
+</mapper>

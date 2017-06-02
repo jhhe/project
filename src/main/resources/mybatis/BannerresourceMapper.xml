@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.BannerresourceMapper" >
+  <resultMap id="BaseResultMap" type="com.project.model.Bannerresource" >
+    <id column="brid" property="brid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="creationdate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="listencount" property="listencount" jdbcType="INTEGER" />
+    <result column="reallisten" property="reallisten" jdbcType="INTEGER" />
+    <result column="praisecount" property="praisecount" jdbcType="INTEGER" />
+    <result column="realpraise" property="realpraise" jdbcType="INTEGER" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="islive" property="islive" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    brid, uid, bid, content, creationdate, deleted, listencount, reallisten, praisecount, 
+    realpraise, duration, sort, islive, state, score
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.project.model.BannerresourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gxb_bannerresource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gxb_bannerresource
+    where brid = #{brid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gxb_bannerresource
+    where brid = #{brid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.model.Bannerresource" >
+    insert into gxb_bannerresource (brid, uid, bid, 
+      content, creationdate, deleted, 
+      listencount, reallisten, praisecount, 
+      realpraise, duration, sort, 
+      islive, state, score
+      )
+    values (#{brid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{creationdate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, 
+      #{listencount,jdbcType=INTEGER}, #{reallisten,jdbcType=INTEGER}, #{praisecount,jdbcType=INTEGER}, 
+      #{realpraise,jdbcType=INTEGER}, #{duration,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{islive,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.Bannerresource" >
+    insert into gxb_bannerresource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brid != null" >
+        brid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="creationdate != null" >
+        creationdate,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="listencount != null" >
+        listencount,
+      </if>
+      <if test="reallisten != null" >
+        reallisten,
+      </if>
+      <if test="praisecount != null" >
+        praisecount,
+      </if>
+      <if test="realpraise != null" >
+        realpraise,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="islive != null" >
+        islive,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brid != null" >
+        #{brid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="listencount != null" >
+        #{listencount,jdbcType=INTEGER},
+      </if>
+      <if test="reallisten != null" >
+        #{reallisten,jdbcType=INTEGER},
+      </if>
+      <if test="praisecount != null" >
+        #{praisecount,jdbcType=INTEGER},
+      </if>
+      <if test="realpraise != null" >
+        #{realpraise,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="islive != null" >
+        #{islive,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.BannerresourceExample" resultType="java.lang.Integer" >
+    select count(*) from gxb_bannerresource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gxb_bannerresource
+    <set >
+      <if test="record.brid != null" >
+        brid = #{record.brid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null" >
+        creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.listencount != null" >
+        listencount = #{record.listencount,jdbcType=INTEGER},
+      </if>
+      <if test="record.reallisten != null" >
+        reallisten = #{record.reallisten,jdbcType=INTEGER},
+      </if>
+      <if test="record.praisecount != null" >
+        praisecount = #{record.praisecount,jdbcType=INTEGER},
+      </if>
+      <if test="record.realpraise != null" >
+        realpraise = #{record.realpraise,jdbcType=INTEGER},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.islive != null" >
+        islive = #{record.islive,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gxb_bannerresource
+    set brid = #{record.brid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      listencount = #{record.listencount,jdbcType=INTEGER},
+      reallisten = #{record.reallisten,jdbcType=INTEGER},
+      praisecount = #{record.praisecount,jdbcType=INTEGER},
+      realpraise = #{record.realpraise,jdbcType=INTEGER},
+      duration = #{record.duration,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      islive = #{record.islive,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.Bannerresource" >
+    update gxb_bannerresource
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null" >
+        creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="listencount != null" >
+        listencount = #{listencount,jdbcType=INTEGER},
+      </if>
+      <if test="reallisten != null" >
+        reallisten = #{reallisten,jdbcType=INTEGER},
+      </if>
+      <if test="praisecount != null" >
+        praisecount = #{praisecount,jdbcType=INTEGER},
+      </if>
+      <if test="realpraise != null" >
+        realpraise = #{realpraise,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="islive != null" >
+        islive = #{islive,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where brid = #{brid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.Bannerresource" >
+    update gxb_bannerresource
+    set uid = #{uid,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      listencount = #{listencount,jdbcType=INTEGER},
+      reallisten = #{reallisten,jdbcType=INTEGER},
+      praisecount = #{praisecount,jdbcType=INTEGER},
+      realpraise = #{realpraise,jdbcType=INTEGER},
+      duration = #{duration,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      islive = #{islive,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER}
+    where brid = #{brid,jdbcType=INTEGER}
+  </update>
+</mapper>

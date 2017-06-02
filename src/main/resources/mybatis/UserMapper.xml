@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.project.model.User" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="selfintro" property="selfintro" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="ask" property="ask" jdbcType="INTEGER" />
+    <result column="answer" property="answer" jdbcType="INTEGER" />
+    <result column="overhear" property="overhear" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="creationdate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="tips" property="tips" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="isv" property="isv" jdbcType="INTEGER" />
+    <result column="isrecommend" property="isrecommend" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, avatar, openid, signature, selfintro, price, sid, ask, answer, overhear, deleted, 
+    creationdate, roleid, nickname, unionid, tips, sort, isv, isrecommend, userid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.project.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gxb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gxb_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gxb_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.model.User" >
+    insert into gxb_user (uid, avatar, openid, 
+      signature, selfintro, price, 
+      sid, ask, answer, overhear, 
+      deleted, creationdate, roleid, 
+      nickname, unionid, tips, 
+      sort, isv, isrecommend, 
+      userid)
+    values (#{uid,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{signature,jdbcType=VARCHAR}, #{selfintro,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{sid,jdbcType=INTEGER}, #{ask,jdbcType=INTEGER}, #{answer,jdbcType=INTEGER}, #{overhear,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{creationdate,jdbcType=TIMESTAMP}, #{roleid,jdbcType=INTEGER}, 
+      #{nickname,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{tips,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{isv,jdbcType=INTEGER}, #{isrecommend,jdbcType=INTEGER}, 
+      #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.User" >
+    insert into gxb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="selfintro != null" >
+        selfintro,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="ask != null" >
+        ask,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="overhear != null" >
+        overhear,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="creationdate != null" >
+        creationdate,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="tips != null" >
+        tips,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="isv != null" >
+        isv,
+      </if>
+      <if test="isrecommend != null" >
+        isrecommend,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="selfintro != null" >
+        #{selfintro,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="ask != null" >
+        #{ask,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=INTEGER},
+      </if>
+      <if test="overhear != null" >
+        #{overhear,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        #{tips,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isv != null" >
+        #{isv,jdbcType=INTEGER},
+      </if>
+      <if test="isrecommend != null" >
+        #{isrecommend,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from gxb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gxb_user
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null" >
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null" >
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selfintro != null" >
+        selfintro = #{record.selfintro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ask != null" >
+        ask = #{record.ask,jdbcType=INTEGER},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=INTEGER},
+      </if>
+      <if test="record.overhear != null" >
+        overhear = #{record.overhear,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationdate != null" >
+        creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.roleid != null" >
+        roleid = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null" >
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tips != null" >
+        tips = #{record.tips,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.isv != null" >
+        isv = #{record.isv,jdbcType=INTEGER},
+      </if>
+      <if test="record.isrecommend != null" >
+        isrecommend = #{record.isrecommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gxb_user
+    set uid = #{record.uid,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      selfintro = #{record.selfintro,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      sid = #{record.sid,jdbcType=INTEGER},
+      ask = #{record.ask,jdbcType=INTEGER},
+      answer = #{record.answer,jdbcType=INTEGER},
+      overhear = #{record.overhear,jdbcType=INTEGER},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      roleid = #{record.roleid,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      tips = #{record.tips,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      isv = #{record.isv,jdbcType=INTEGER},
+      isrecommend = #{record.isrecommend,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.User" >
+    update gxb_user
+    <set >
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="selfintro != null" >
+        selfintro = #{selfintro,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="ask != null" >
+        ask = #{ask,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=INTEGER},
+      </if>
+      <if test="overhear != null" >
+        overhear = #{overhear,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        tips = #{tips,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isv != null" >
+        isv = #{isv,jdbcType=INTEGER},
+      </if>
+      <if test="isrecommend != null" >
+        isrecommend = #{isrecommend,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.User" >
+    update gxb_user
+    set avatar = #{avatar,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      selfintro = #{selfintro,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      sid = #{sid,jdbcType=INTEGER},
+      ask = #{ask,jdbcType=INTEGER},
+      answer = #{answer,jdbcType=INTEGER},
+      overhear = #{overhear,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      roleid = #{roleid,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      tips = #{tips,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      isv = #{isv,jdbcType=INTEGER},
+      isrecommend = #{isrecommend,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

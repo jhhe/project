@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.LiveMapper" >
+  <resultMap id="BaseResultMap" type="com.project.model.Live" >
+    <id column="lid" property="lid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="touid" property="touid" jdbcType="INTEGER" />
+    <result column="listencount" property="listencount" jdbcType="INTEGER" />
+    <result column="down" property="down" jdbcType="INTEGER" />
+    <result column="creationdate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="ispublic" property="ispublic" jdbcType="INTEGER" />
+    <result column="anonymous" property="anonymous" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="uidread" property="uidread" jdbcType="INTEGER" />
+    <result column="touidread" property="touidread" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    lid, uid, title, touid, listencount, down, creationdate, deleted, ispublic, anonymous, 
+    state, status, flag, sort, sid, uidread, touidread
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.project.model.LiveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gxb_live
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gxb_live
+    where lid = #{lid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gxb_live
+    where lid = #{lid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.project.model.Live" >
+    insert into gxb_live (lid, uid, title, 
+      touid, listencount, down, 
+      creationdate, deleted, ispublic, 
+      anonymous, state, status, 
+      flag, sort, sid, uidread, 
+      touidread)
+    values (#{lid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{touid,jdbcType=INTEGER}, #{listencount,jdbcType=INTEGER}, #{down,jdbcType=INTEGER}, 
+      #{creationdate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{ispublic,jdbcType=INTEGER}, 
+      #{anonymous,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{flag,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{uidread,jdbcType=INTEGER}, 
+      #{touidread,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.Live" >
+    insert into gxb_live
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lid != null" >
+        lid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="touid != null" >
+        touid,
+      </if>
+      <if test="listencount != null" >
+        listencount,
+      </if>
+      <if test="down != null" >
+        down,
+      </if>
+      <if test="creationdate != null" >
+        creationdate,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="ispublic != null" >
+        ispublic,
+      </if>
+      <if test="anonymous != null" >
+        anonymous,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="uidread != null" >
+        uidread,
+      </if>
+      <if test="touidread != null" >
+        touidread,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lid != null" >
+        #{lid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="touid != null" >
+        #{touid,jdbcType=INTEGER},
+      </if>
+      <if test="listencount != null" >
+        #{listencount,jdbcType=INTEGER},
+      </if>
+      <if test="down != null" >
+        #{down,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="ispublic != null" >
+        #{ispublic,jdbcType=INTEGER},
+      </if>
+      <if test="anonymous != null" >
+        #{anonymous,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="uidread != null" >
+        #{uidread,jdbcType=INTEGER},
+      </if>
+      <if test="touidread != null" >
+        #{touidread,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.LiveExample" resultType="java.lang.Integer" >
+    select count(*) from gxb_live
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gxb_live
+    <set >
+      <if test="record.lid != null" >
+        lid = #{record.lid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touid != null" >
+        touid = #{record.touid,jdbcType=INTEGER},
+      </if>
+      <if test="record.listencount != null" >
+        listencount = #{record.listencount,jdbcType=INTEGER},
+      </if>
+      <if test="record.down != null" >
+        down = #{record.down,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationdate != null" >
+        creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.ispublic != null" >
+        ispublic = #{record.ispublic,jdbcType=INTEGER},
+      </if>
+      <if test="record.anonymous != null" >
+        anonymous = #{record.anonymous,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uidread != null" >
+        uidread = #{record.uidread,jdbcType=INTEGER},
+      </if>
+      <if test="record.touidread != null" >
+        touidread = #{record.touidread,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gxb_live
+    set lid = #{record.lid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      touid = #{record.touid,jdbcType=INTEGER},
+      listencount = #{record.listencount,jdbcType=INTEGER},
+      down = #{record.down,jdbcType=INTEGER},
+      creationdate = #{record.creationdate,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      ispublic = #{record.ispublic,jdbcType=INTEGER},
+      anonymous = #{record.anonymous,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      uidread = #{record.uidread,jdbcType=INTEGER},
+      touidread = #{record.touidread,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.Live" >
+    update gxb_live
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="touid != null" >
+        touid = #{touid,jdbcType=INTEGER},
+      </if>
+      <if test="listencount != null" >
+        listencount = #{listencount,jdbcType=INTEGER},
+      </if>
+      <if test="down != null" >
+        down = #{down,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="ispublic != null" >
+        ispublic = #{ispublic,jdbcType=INTEGER},
+      </if>
+      <if test="anonymous != null" >
+        anonymous = #{anonymous,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="uidread != null" >
+        uidread = #{uidread,jdbcType=INTEGER},
+      </if>
+      <if test="touidread != null" >
+        touidread = #{touidread,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.Live" >
+    update gxb_live
+    set uid = #{uid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      touid = #{touid,jdbcType=INTEGER},
+      listencount = #{listencount,jdbcType=INTEGER},
+      down = #{down,jdbcType=INTEGER},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      ispublic = #{ispublic,jdbcType=INTEGER},
+      anonymous = #{anonymous,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER},
+      uidread = #{uidread,jdbcType=INTEGER},
+      touidread = #{touidread,jdbcType=INTEGER}
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+</mapper>
