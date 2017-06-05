@@ -25,4 +25,9 @@ public class BannerServiceImpl implements BannerService{
         return bannerMapper.selectByExample(example);
     }
 
+    @Override
+    public Banner getBanner(int bid) {
+        return bannerMapper.selectByPrimaryKey(bid);
+    }
+
 }

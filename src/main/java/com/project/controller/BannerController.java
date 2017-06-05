@@ -3,12 +3,10 @@ package com.project.controller;
 import com.project.model.Banner;
 import com.project.service.BannerService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,13 @@ public class BannerController {
     @ApiOperation(value = "获取所有banner信息", notes = "查询1-100")
     public List<Banner> getBanners(){
         return bannerService.getBanners();
+    }
+
+    @RequestMapping(value = "/getBanner/{bid}", method = RequestMethod.GET)
+    @ApiOperation(value = "获取指定banner信息", notes = "默认显示第二条banner")
+    @ApiImplicitParam(name = "bid", value = "唯一id", required = false, dataType = "int", paramType = "path", defaultValue = "2")
+    public Banner getBanner(@RequestParam(defaultValue = "2", required = false) int bid){
+        return bannerService.getBanner(bid);
     }
 
 }

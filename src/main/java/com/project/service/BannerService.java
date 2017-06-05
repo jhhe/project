@@ -11,4 +11,5 @@ public interface BannerService {
 
     List<Banner> getBanners();
 
+    Banner getBanner(int bid);
 }
